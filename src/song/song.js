@@ -4,7 +4,7 @@ import React, {
 import axios from 'axios';
 import Head from '../common/header/header';
 
-class Page extends Component {
+class Song extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -13,14 +13,14 @@ class Page extends Component {
 	}
 	render() {
 		return (
-			<div className="page">
-				<Head title = '详情页面'/>
+			<div className="song">
+				<Head title = '网易云音乐'/>
 				<div>
-					详情页面
+					热歌榜
 				</div>
       		</div>
 		);
 	}
 }
 
-export default Page;
+export default Song;

@@ -1,15 +1,24 @@
-import React, { Component } from 'react';
-import { Route, BrowserRouter } from 'react-router-dom';
+import React, {
+	Component
+} from 'react';
+import {
+	Route,
+	BrowserRouter
+} from 'react-router-dom';
 
-import Main from './page/main'
+import Seachr from './seachr/seachr' // 搜索
 import Page from './page/page'
+import Song from './song/song' //热歌榜
+import Recommend from './recommend/recommend' //推荐榜
 class Routes extends Component {
 
 	render() {
 		return (
 			<BrowserRouter>
 				<div>
-					<Route exact path='/' component={ Main }/>
+					<Route exact path='/' component={ Recommend }/>
+					<Route path='/song' component={ Song }/>
+					<Route path='/seachr' component={ Seachr }/>
 					<Route path='/page' component={ Page }/>
 				</div>
                
@@ -19,4 +28,3 @@ class Routes extends Component {
 }
 
 export default Routes;
-

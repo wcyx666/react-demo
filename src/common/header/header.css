@@ -1,1 +1,25 @@
-header.css
+.head {
+	width: 100%;
+}
+.head_top {
+	width: 100%;
+	height: 1.2rem;
+	background: #d43c33;
+	font-size: 18px;
+	color: #fff;
+	line-height: 1.2rem;
+	text-align: center;
+}
+.head_bottom {
+	width: 100%;
+}
+.head_bottom ul li {
+	float: left;
+	width: 33.3%;
+	height: .8rem;
+	line-height: .8rem;
+	text-align: center;
+}
+.head_bottom ul li a {
+	color: #333;
+}
