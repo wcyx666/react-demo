@@ -21,6 +21,17 @@ class Song extends Component {
       		</div>
 		);
 	}
+	componentDidMount() {
+        let that = this;
+        axios.get('http://musicapi.leanapp.cn/top/playlist/highquality')
+        .then(function(res) {
+            console.log(res)
+            
+        })
+        .catch(function(error) {
+            console.log(error)
+        });
+    }
 }
 
 export default Song;

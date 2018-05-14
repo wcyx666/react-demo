@@ -25,7 +25,7 @@ export default class Main extends Component {
     }
     render() {
         const list = this.state.data.map((value, index) => {
-            return <li className='item' key={index}><Link to='/page'>{value.name}</Link></li>
+            return <li className='item' key={index}><Link to={'/detail/'+value.album.id}>{value.name}</Link></li>
         })
         const hotlist = this.state.hotlist.map((value, index) => {
             return <li className='item' key={value} onClick={ this.handleClickText.bind(this) }>{ value }</li>
@@ -33,24 +33,24 @@ export default class Main extends Component {
         return (
             <div>
                 <Head title="网易云音乐"></Head>
-                <div class="seachr_content">
+                <div className="seachr_content">
                     <div className="search_input">
                         <i className="icon_sec"></i>
-                        <input type="input" onKeyDown={this.handleClickOnTitle.bind(this)}/>
+                        <input type="input" value={ this.state.message } placeholder="搜索歌曲、歌手、专辑" onChange={this.handleClickOnTitle.bind(this)}/>
                         {
-                           this.state.message.length > 0 && 
+                           this.state.message != '' && 
                            <i className="icon_close" onClick={ this.handleClickNUll.bind(this) }></i>
                         }
                         
                     </div>
                     {
-                        this.state.message.length > 0 &&
+                        this.state.message != '' &&
                         <div className="f_thide">
                             搜索"{ this.state.message }"
                         </div> 
                     }
                     {
-                        this.state.message.length > 0 ? (
+                        this.state.message != '' ? (
                             <div className="search_list"> 
                                 <ul>
                                     { list }
@@ -77,48 +77,53 @@ export default class Main extends Component {
     }
     handleClickOnTitle(event) {
         let that = this;
-        console.log(event.target.value)
         this.setState({
             message: event.target.value
         })
-        axios.get('https://api.imjad.cn/cloudmusic/', {
+        axios.get('http://musicapi.leanapp.cn/search/', {
+            params: {
+                type: 1,
+                limit:6,
+                keywords: event.target.value
+            }
 
-                params: {
-
-                    type: 'search',
-                    search_type: '1',
-                    s: event.target.value
-
-                }
-
-            })
-
-            .then(function(res) {
-                that.setState({
-
-                    data: res.data.result.songs
-                });
-
-            })
-
-            .catch(function(error) {
-
-                console.log(error)
-
+        })
+        .then(function(res) {
+            console.log(res)
+            that.setState({
+                data: res.data.result.songs
             });
+        })
+        .catch(function(error) {
+            console.log(error)
+        });
     }
     handleClickNUll(event) {
         this.setState({
+            data:[],
             message: ''
         })
     }
     handleClickText(event) {
-        this.setState({
+        let that = this;
+        that.setState({
             message: event.target.innerHTML
         })
-    }
-    componentDidMount() {
-
-
+        axios.get('http://musicapi.leanapp.cn/search/', {
+            params: {
+                type: 1,
+                limit:6,
+                keywords: event.target.innerHTML
+            }
+        })
+        .then(function(res) {
+            console.log(res)
+            that.setState({
+                data: res.data.result.songs
+            });
+        })
+        .catch(function(error) {
+            console.log(error)
+        });
     }
 }

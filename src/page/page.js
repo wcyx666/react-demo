@@ -2,7 +2,6 @@ import React, {
 	Component
 } from 'react';
 import axios from 'axios';
-import Head from '../common/header/header';
 
 class Page extends Component {
 	constructor(props) {
@@ -14,13 +13,32 @@ class Page extends Component {
 	render() {
 		return (
 			<div className="page">
-				<Head title = '详情页面'/>
 				<div>
 					详情页面
 				</div>
       		</div>
 		);
 	}
+	componentDidMount() {
+		let id = this.props.match.params.id;
+		let that = this;
+		console.log(id);
+		axios.get('http://musicapi.leanapp.cn/album/', {
+            params: {
+                id: id,
+            }
+        })
+        .then(function(res) {
+            console.log(res)
+            that.setState({
+                data: res.data.result.songs
+            });
+        })
+        .catch(function(error) {
+            console.log(error)
+        });
+
+    }
 }
 
 export default Page;

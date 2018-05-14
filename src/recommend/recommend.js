@@ -21,6 +21,27 @@ class Recommend extends Component {
       		</div>
 		);
 	}
+	componentDidMount() {
+        let that = this;
+        axios.get('http://musicapi.leanapp.cn/personalized')
+        .then(function(res) {
+            console.log(res)
+            
+        })
+        .catch(function(error) {
+            console.log(error)
+        });
+
+        axios.get('http://musicapi.leanapp.cn/personalized/newsong')
+        .then(function(res) {
+            console.log(res)
+            
+        })
+        .catch(function(error) {
+            console.log(error)
+        });
+
+    }
 }
 
 export default Recommend;

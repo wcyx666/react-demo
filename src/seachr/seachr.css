@@ -9,6 +9,7 @@
 	box-sizing: border-box;
 	background: #ebecec;
 	border-radius: 30px;
+	border-bottom: .01rem solid #ebecec;
 }
 .search_input input {
     width: 100%;
@@ -20,6 +21,7 @@
     -webkit-appearance: none;
     border-radius: 0;
     border: 0;
+    outline: none;
 }
 .icon_sec {
 	position: absolute;
@@ -45,7 +47,7 @@
 }
 .search_list ul li {
 	padding: .23rem 0;
-	font-size: 14px;
+	font-size: 16px;
 	border-bottom: .01rem solid #ebecec;
 	background: url(./img/icon_sec.png) no-repeat center left;
 	padding-left: .5rem;

@@ -19,7 +19,7 @@ class Routes extends Component {
 					<Route exact path='/' component={ Recommend }/>
 					<Route path='/song' component={ Song }/>
 					<Route path='/seachr' component={ Seachr }/>
-					<Route path='/page' component={ Page }/>
+					<Route path='/detail/:id' component={ Page }/>
 				</div>
                
             </BrowserRouter>
