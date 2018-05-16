@@ -2,8 +2,7 @@ import React, {
     Component
 } from 'react';
 import {
-    Link,
-    Route
+    Link
 } from 'react-router-dom';
 import axios from 'axios';
 

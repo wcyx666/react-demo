@@ -1,6 +1,9 @@
 import React, {
 	Component
 } from 'react';
+import {
+	Link,
+} from 'react-router-dom';
 import axios from 'axios';
 import Head from '../common/header/header';
 
@@ -18,10 +21,12 @@ class Recommend extends Component {
 	render() {
 		const songs = this.state.songsData.map((data, index) => {
 			return <li className='sgitem' key={index}>
-						<div className="picUrl">
-							<img src={data.picUrl}/>
-						</div>
-						<p>{ data.name }</p>
+						<Link to={ '/recom/list/'+data.id }>
+							<div className="picUrl">
+								<img src={data.picUrl}/>
+							</div>
+							<p>{ data.name }</p>
+						</Link>
 					</li>
 		})
 		const newsg = this.state.newsgDta.map((data, index) => {

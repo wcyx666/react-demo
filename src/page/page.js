@@ -3,21 +3,32 @@ import React, {
 } from 'react';
 import axios from 'axios';
 
+// 引入CSS
+import './page.css'
+
 class Page extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
 			data: '',
 			audioSrc: "",
-			results: ''
+			lyric: [],
+			lyricTime: ""
 		};
 	}
 	render() {
+		const lyricList = this.state.lyric.map((value, index) => {
+			return <li key={index} className={ this.state.lyricTime > value[0] ? "active" : null }>{value[1]}</li>
+		})
 		return (
 			<div className="page">
 				<div>
-					<h2>{ this.state.results }</h2>
-					<audio id='audio'
+					<div className="lyric">
+						<ul>
+							{ lyricList }
+						</ul>
+					</div>
+					<audio id='audio' onTimeUpdate={ this.ontimeupdate.bind(this) }
 					    src={ this.state.audioSrc } 
 					    autoplay controls>
 					</audio>
@@ -25,47 +36,61 @@ class Page extends Component {
       		</div>
 		);
 	}
+	parseLyric(text) {
+		let lines = text.split('\n'),
+			pattern = /\[\d{2}:\d{2}.\d{2}\]/g,
+			//保存最终结果的数组   
+			result = [];
+		//上面用'\n'生成生成数组时，结果中最后一个为空元素，这里将去掉   
+		lines[lines.length - 1].length === 0 && lines.pop();
 
-	getLrc(lrc) {
-		var timeReg = /\[\d{2}:\d{2}.\d{2}\]/g; //匹配时间的正则表达式
-		var result = [];
-		for (var i = 0; i < lrc.length; i++) {
-			var time = lrc[i].match(timeReg); //获取歌词里的时间
-			var value = lrc[i].replace(timeReg, ""); //获取纯歌词文本
-			for (var j = 0; j < time.length; j++) {
-				var t = time[j].slice(1, -1).split(":"); //t[0]分钟，t[1]秒
-				var timeArr = parseInt(t[0], 10) * 60 + parseFloat(t[1]);
-				result.push([timeArr, value]); //以[时间(秒)，歌词]的形式存进result
+		lines.forEach(function(v /*数组元素值*/ , i /*元素索引*/ , a /*数组本身*/ ) {
+			if (v.match(pattern)) {
+				let time = v.match(pattern);
+				let value = v.replace(pattern, '');
+				time.forEach(function(v1, i1, a1) {
+					//去掉时间里的中括号得到xx:xx.xx   
+					var t = v1.slice(1, -1).split(':');
+					//将结果压入最终数组   
+					result.push([parseInt(t[0], 10) * 60 + parseFloat(t[1]), value]);
+				});
+			}
+		});
+		//最后将结果数组中的元素按时间大小排序，以便保存之后正常显示歌词   
+		result.sort(function(a, b) {
+			return a[0] - b[0];
+		});
 
-			}
-		}
-		setInterval(function() {
-			var myAudio = document.getElementById('audio');
-			var curTime = myAudio.currentTime; //获取当前的播放时间
-			console.log(curTime)
-		}, 1000);
-	}
-	/*	showLrc() {
-			var myAudio = document.getElementById('audio');
-			var curTime = 9.7; //获取当前的播放时间
-			console.log(this.state.result.length)
-			for (var i = 0; i <
-				this.state.result.length; i++) {
-				if ((curTime > this.state.result[i][0]) && (curTime < this.state.result[i + 1][0])) {
-					//播放时间大于对应歌词时间小于下一句歌词时间就显示当前歌词
-					console.log(this.state.result[i][1]);
-					break; //找到对应歌词就停，不停的话，呵呵。。。
-				}
-			}
-		}*/
-	componentDidMount() {
-		let id = this.props.match.params.id;
-		let that = this;
+		this.setState({
+			lyric: result
+		})
+
+		//let that = this;
 		/*setInterval(function() {
 			var myAudio = document.getElementById('audio');
 			var curTime = myAudio.currentTime; //获取当前的播放时间
 			console.log(curTime)
+			for (var i = 0; i < result.length; i++) {
+				if ((curTime > result[i][0]) && (curTime < result[i + 1][0])) {
+					//播放时间大于对应歌词时间小于下一句歌词时间就显示当前歌词
+					that.setState({
+						text: result[i][1]
+					})
+					break; //找到对应歌词就停，不停的话，呵呵。。。
+				}
+			}
 		}, 1000);*/
+	}
+	ontimeupdate() {
+		let myAudio = document.getElementById('audio');
+		let curTime = myAudio.currentTime; //获取当前的播放时间
+		this.setState({
+			lyricTime: curTime
+		})
+	}
+	componentDidMount() {
+		let id = this.props.match.params.id;
+		let that = this;
 		// 获取播放url
 		axios.get('http://localhost:3001/music/url', {
 				params: {
@@ -89,11 +114,7 @@ class Page extends Component {
 				}
 			})
 			.then(function(res) {
-				that.getLrc(res.data.lrc.lyric.split('\n'))
-				that.setState({
-					results: res.data.lrc.lyric
-				})
-
+				that.parseLyric(res.data.lrc.lyric);
 			})
 			.catch(function(error) {
 				console.log(error)
