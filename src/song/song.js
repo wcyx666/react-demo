@@ -8,7 +8,7 @@ class Song extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			data: ''
+			data: []
 		};
 	}
 	render() {
@@ -22,16 +22,20 @@ class Song extends Component {
 		);
 	}
 	componentDidMount() {
-        let that = this;
-        axios.get('http://musicapi.leanapp.cn/top/playlist/highquality')
-        .then(function(res) {
-            console.log(res)
-            
-        })
-        .catch(function(error) {
-            console.log(error)
-        });
-    }
+		let that = this;
+		axios.get('http://localhost:3001/playlist/hot', {
+				params: {
+				idx: '1',
+				}
+			})
+			.then(function(res) {
+				console.log(res);
+
+			})
+			.catch(function(error) {
+				console.log(error)
+			});
+	}
 }
 
 export default Song;

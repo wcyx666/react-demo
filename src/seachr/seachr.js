@@ -25,7 +25,7 @@ export default class Main extends Component {
     }
     render() {
         const list = this.state.data.map((value, index) => {
-            return <li className='item' key={index}><Link to={'/detail/'+value.album.id}>{value.name}</Link></li>
+            return <li className='item' key={index}><Link to={'/detail/'+value.id}>{value.name}</Link></li>
         })
         const hotlist = this.state.hotlist.map((value, index) => {
             return <li className='item' key={value} onClick={ this.handleClickText.bind(this) }>{ value }</li>
@@ -80,27 +80,27 @@ export default class Main extends Component {
         this.setState({
             message: event.target.value
         })
-        axios.get('http://musicapi.leanapp.cn/search/', {
-            params: {
-                type: 1,
-                limit:6,
-                keywords: event.target.value
-            }
+        axios.get('http://localhost:3001/search/', {
+                params: {
+                    type: 1,
+                    limit: 6,
+                    keywords: event.target.value
+                }
 
-        })
-        .then(function(res) {
-            console.log(res)
-            that.setState({
-                data: res.data.result.songs
+            })
+            .then(function(res) {
+                console.log(res)
+                that.setState({
+                    data: res.data.result.songs
+                });
+            })
+            .catch(function(error) {
+                console.log(error)
             });
-        })
-        .catch(function(error) {
-            console.log(error)
-        });
     }
     handleClickNUll(event) {
         this.setState({
-            data:[],
+            data: [],
             message: ''
         })
     }
@@ -109,21 +109,21 @@ export default class Main extends Component {
         that.setState({
             message: event.target.innerHTML
         })
-        axios.get('http://musicapi.leanapp.cn/search/', {
-            params: {
-                type: 1,
-                limit:6,
-                keywords: event.target.innerHTML
-            }
-        })
-        .then(function(res) {
-            console.log(res)
-            that.setState({
-                data: res.data.result.songs
+        axios.get('http://localhost:3001/search/', {
+                params: {
+                    type: 1,
+                    limit: 6,
+                    keywords: event.target.innerHTML
+                }
+            })
+            .then(function(res) {
+                console.log(res)
+                that.setState({
+                    data: res.data.result.songs
+                });
+            })
+            .catch(function(error) {
+                console.log(error)
             });
-        })
-        .catch(function(error) {
-            console.log(error)
-        });
     }
 }
