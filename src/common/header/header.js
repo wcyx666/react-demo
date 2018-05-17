@@ -2,7 +2,7 @@ import React, {
     Component
 } from 'react';
 import {
-    Link
+    NavLink
 } from 'react-router-dom';
 
 import './header.css'
@@ -22,13 +22,13 @@ class Title extends Component {
 	            <div className="head_bottom">
                     <ul>
                         <li>
-                            <Link to="/">推荐音乐</Link>
+                            <NavLink exact activeClassName="active" to="/">推荐音乐</NavLink>
                         </li>
                         <li>
-                            <Link to="/song">热歌榜</Link>
+                            <NavLink activeClassName="active" to="/song">热歌榜</NavLink>
                         </li>
                         <li>
-                            <Link to="/seachr">搜索</Link>
+                            <NavLink activeClassName="active" to="/seachr">搜索</NavLink>
                         </li>
                     </ul>
                 </div>

@@ -3,34 +3,49 @@ import React, {
 } from 'react';
 import axios from 'axios';
 
+// 引入返回头部
+import Head from '../return-header/return-head'
 // 引入CSS
-import './page.css'
+import './play.css'
 
-class Page extends Component {
+
+class Play extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
 			data: '',
 			audioSrc: "",
 			lyric: [],
-			lyricTime: ""
+			lyricTime: "",
+			lyricTitle: '',
+			lyricSrc: '',
 		};
 	}
 	render() {
 		const lyricList = this.state.lyric.map((value, index) => {
-			return <li key={index} className={ this.state.lyricTime > value[0] ? "active" : null }>{value[1]}</li>
+			return <li key={index} className={ this.state.lyricTime > value[0] ? "lyricActive" : 'null' }>{value[1]}</li>
 		})
 		return (
-			<div className="page">
-				<div>
-					<div className="lyric">
-						<ul>
+			<div className="Play">
+				<Head title={ this.state.lyricTitle }></Head>
+				<div className="Play_info">
+					<div className="Play_info_content">
+						<div className="Play_info_img">
+							<div className='Play_info_img_bg'></div>
+							<div className="Play_info_img_logo">
+								<img src={ this.state.lyricSrc } alt="" />
+							</div>
+						</div>
+					</div>
+					<div className="play_lyric">
+						<h2 className="play_lyric_title">111</h2>
+						<ul className="play_lyric_content">
 							{ lyricList }
 						</ul>
 					</div>
 					<audio id='audio' onTimeUpdate={ this.ontimeupdate.bind(this) }
 					    src={ this.state.audioSrc } 
-					    autoplay controls>
+					    controls>
 					</audio>
 				</div>
       		</div>
@@ -98,7 +113,6 @@ class Page extends Component {
 				}
 			})
 			.then(function(res) {
-				console.log(res.data.data[0].url)
 				that.setState({
 					audioSrc: res.data.data[0].url
 				})
@@ -120,7 +134,24 @@ class Page extends Component {
 				console.log(error)
 			});
 
+		// 获取歌曲详情
+		axios.get('http://localhost:3001/song/detail', {
+				params: {
+					ids: id,
+				}
+			})
+			.then(function(res) {
+				console.log(res.data.songs);
+				that.setState({
+					lyricTitle: res.data.songs[0].name,
+					lyricSrc: res.data.songs[0].al.picUrl,
+				})
+			})
+			.catch(function(error) {
+				console.log(error)
+			});
+
 	}
 }
 
-export default Page;
+export default Play;

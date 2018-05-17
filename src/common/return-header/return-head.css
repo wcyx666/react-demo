@@ -1,0 +1,21 @@
+.return_head {
+	width: 100%;
+	height: .85rem;
+	background: #d43c33;
+	color: #fff;
+}
+.return_head h1 {
+	font-size: 16px;
+	text-align: center;
+	line-height: .85rem;
+}
+.return_head_icon {
+	display: inline-block;
+	width: 24px;
+	height: 24px;
+	background: url(../../static/icon_return.png) no-repeat;
+	background-size: 100%;
+	position: absolute;
+	top: .2rem;
+	left: .1rem;
+}

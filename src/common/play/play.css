@@ -1,0 +1,77 @@
+.Play_info {
+	width: 100%;
+}
+.Play_info_content {
+	width: 100%;
+	height: 7rem;
+	position: relative;
+}
+.Play_info_img {
+	position: absolute;
+	top: 1rem;
+    left: 50%;
+    width: 5.2rem;
+    height: 5.2rem;
+    margin-left: -2.8rem;
+    -webkit-animation: rotate 12s linear infinite;
+    animation: rotate 12s linear infinite;
+}
+.Play_info_img_bg {
+	position: relative;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: hsla(0,0%,100%,.1);
+    background-image: url(../../static/disc.png);
+    background-repeat: no-repeat;
+    background-position: 50%;
+    background-size: contain;
+}
+.Play_info_img_logo {
+	position: absolute;
+	width: 3.6rem;
+	height: 3.6rem;
+	top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%,-50%);
+    -ms-transform: translate(-50%,-50%);
+    transform: translate(-50%,-50%);
+}
+.Play_info_img_logo img {
+	width: 100%;
+}
+.play_lyric {
+	width: 100%;
+	text-align: center;
+}
+.play_lyric_title {
+	font-size: 16px;
+	font-weight: bold;
+	padding-bottom: 10px;
+}
+.play_lyric_content {
+	font-size: 16px;
+	font-weight: bold;
+	width: 100%;
+	height: 2rem;
+	overflow: hidden;
+}
+.play_lyric_content li {
+	padding-bottom: 10px;
+}
+.lyricActive {
+	color: red;
+}
+
+@keyframes rotate{ 
+	0%{ transform: rotate(0deg); 
+		-webkit-transform: rotate(0deg); 
+		-moz-transform: rotate(0deg); 
+	} 
+	100%{ 
+		transform: rotate(360deg); 
+		-webkit-transform: rotate(360deg); 
+		-moz-transform: rotate(360deg); 
+	} 
+}

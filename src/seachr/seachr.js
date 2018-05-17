@@ -7,7 +7,6 @@ import {
 import axios from 'axios';
 
 import Head from '../common/header/header';
-import Page from '../page/page'
 
 // 引入CSS
 import './seachr.css'

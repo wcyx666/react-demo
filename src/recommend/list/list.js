@@ -2,7 +2,11 @@ import React, {
 	Component
 } from 'react';
 import axios from 'axios';
-
+import Head from '../../common/return-header/return-head';
+import {
+	Link
+} from 'react-router-dom';
+import createHistory from "history/createBrowserHistory"
 
 // 引入CSS
 import './list.css'
@@ -18,6 +22,7 @@ class RecomList extends Component {
 	render() {
 		return (
 			<div className="recom_list">
+				<Head title={ this.state.recomInfo.name }></Head>
 				<div className="recom_list_head">
 					<div className="recom_list_head_left">
 						<img src={ this.state.recomInfo.coverImgUrl } art=""/>
@@ -33,18 +38,19 @@ class RecomList extends Component {
 						{
 							this.state.recomList.map((val,index) => {
 								return  <li key={ index }>
-											<i className="num sgi_fl">{ index+1 }</i>
-											<div className="info">
-												<div className="info_left">
-													<h2 className="name">{ val.name }</h2>
-													<p>{ val.album.artists[0].name }-{ val.album.name }</p>
+											<Link to={ '/detail/'+val.id }>
+												<i className="num sgi_fl">{ index+1 }</i>
+												<div className="info">
+													<div className="info_left">
+														<h2 className="name">{ val.name }</h2>
+														<p>{ val.album.artists[0].name }-{ val.album.name }</p>
+													</div>
+													
+													<div className="info_right">
+														<i></i>
+													</div>
 												</div>
-												
-												<div className="info_right">
-													<i></i>
-												</div>
-											</div>
-																						
+											</Link>											
 										</li>
 							})
 						}

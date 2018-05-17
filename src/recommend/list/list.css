@@ -41,6 +41,9 @@
 	width: 100%;
 	height: 1.2rem;
 }
+.recom_list_music ul li a {
+	color: #333;
+}
 .recom_list_music ul li .num {
 	float: left;
     width: 10%;
