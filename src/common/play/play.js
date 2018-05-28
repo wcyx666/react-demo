@@ -19,6 +19,7 @@ class Play extends Component {
 			lyricTime: "",
 			lyricTitle: '',
 			lyricSrc: '',
+			lyricPlay: true
 		};
 	}
 	render() {
@@ -38,7 +39,7 @@ class Play extends Component {
 						</div>
 					</div>
 					<div className="play_lyric">
-						<h2 className="play_lyric_title">111</h2>
+						<h2 className="play_lyric_title">{ this.state.lyricTitle }</h2>
 						<ul className="play_lyric_content">
 							{ lyricList }
 						</ul>
@@ -47,6 +48,21 @@ class Play extends Component {
 					    src={ this.state.audioSrc } 
 					    controls>
 					</audio>
+					<div className="progress">
+						<span className='start'>00:02</span>
+						<div className="progress-bar">
+							<div className="now"></div>
+						</div>
+						<span className="end">05:23</span>
+					</div>
+					<div className="music_info">
+						<ul>
+							<li className="music_left"></li>
+							<li className={ this.state.lyricPlay == true ? 'music_play' : 'music_end'} onClick={ this.onplay.bind(this) }></li>
+							<li className="music_right"></li>
+						</ul>
+
+					</div>
 				</div>
       		</div>
 		);
@@ -96,6 +112,21 @@ class Play extends Component {
 			}
 		}, 1000);*/
 	}
+	onplay() {
+		let myAudio = document.getElementById('audio');
+		if (this.state.lyricPlay) {
+			myAudio.play();
+			this.setState({
+				lyricPlay: false
+			})
+		} else {
+			myAudio.pause();
+			this.setState({
+				lyricPlay: true
+			})
+		}
+
+	}
 	ontimeupdate() {
 		let myAudio = document.getElementById('audio');
 		let curTime = myAudio.currentTime; //获取当前的播放时间
@@ -103,7 +134,16 @@ class Play extends Component {
 			lyricTime: curTime
 		})
 	}
+	getDuration() {
+		let that = this;
+		setInterval(function() {
+			let myaudio = document.getElementById("audio");
+			let lenth = myaudio.duration;
+			console.log(parseFloat(that.state.lyricTime / lenth) * 300);
+		}, 1000);
+	}
 	componentDidMount() {
+		//this.getDuration();
 		let id = this.props.match.params.id;
 		let that = this;
 		// 获取播放url
