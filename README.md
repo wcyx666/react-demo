@@ -1,5 +1,5 @@
-《适合新手》使用React.js框架编写网易云音乐App，边写边学习，会导致很多bug与问题，欢迎码友们提出建议，相互学习，记住给Star(小星星)。项目开发中...
-=====
+##《适合新手》使用React.js框架编写网易云音乐App，边写边学习，会导致很多bug与问题，欢迎码友们提出建议，相互学习，记住给Star(小星星)。项目开发中...
+
 
 项目中使用了官方脚手架《create-react-app》就是为了方便，搭建的依赖Axios，react-router-dom，Redux近期会添加。
 
@@ -14,6 +14,10 @@
 ## 关于网易云API，优秀的API，才有动力写项目。
 
 [网易云音乐API](https://binaryify.github.io/NeteaseCloudMusicApi/#/)  
+
+## 还有一个小小的demo，Vue开发特别适合新手玩家练习。
+
+[链接在这](https://github.com/wcyx666/vue-douban) 
 
 ## create-react-app优点
 
