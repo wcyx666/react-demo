@@ -20,24 +20,28 @@ class Recommend extends Component {
 	}
 	render() {
 		const songs = this.state.songsData.map((data, index) => {
-			return <li className='sgitem' key={index}>
-						<Link to={ '/recom/list/'+data.id }>
-							<div className="picUrl">
-								<img src={data.picUrl}/>
-							</div>
-							<p>{ data.name }</p>
-						</Link>
-					</li>
+			return (
+				<li className='sgitem' key={index}>
+					<Link to={ '/recom/list/'+data.id }>
+						<div className="picUrl">
+							<img src={data.picUrl}/>
+						</div>
+						<p>{ data.name }</p>
+					</Link>
+				</li>
+			)
 		})
 		const highquality = this.state.highquality.map((data, index) => {
-			return <li className='sgitem' key={index}>
-						<Link to={ '/recom/list/'+data.id }>
-							<div className="picUrl">
-								<img src={data.coverImgUrl}/>
-							</div>
-							<p>{ data.name }</p>
-						</Link>
-					</li>
+			return (
+				<li className='sgitem' key={index}>
+					<Link to={ '/recom/list/'+data.id }>
+						<div className="picUrl">
+							<img src={data.coverImgUrl}/>
+						</div>
+						<p>{ data.name }</p>
+					</Link>
+				</li>
+			)
 		})
 		return (
 			<div className="recommend">

@@ -77,7 +77,6 @@ class Play extends Component {
 	parseLyric(text) {
 		let lines = text.split('\n'),
 			pattern = /\[\d{2}:\d{2}.\d{2}\]/g,
-			//保存最终结果的数组   
 			result = [];
 
 		while (!pattern.test(lines[0])) {
@@ -106,22 +105,6 @@ class Play extends Component {
 		this.setState({
 			lyric: result
 		})
-
-		//let that = this;
-		/*setInterval(function() {
-			var myAudio = document.getElementById('audio');
-			var curTime = myAudio.currentTime; //获取当前的播放时间
-			console.log(curTime)
-			for (var i = 0; i < result.length; i++) {
-				if ((curTime > result[i][0]) && (curTime < result[i + 1][0])) {
-					//播放时间大于对应歌词时间小于下一句歌词时间就显示当前歌词
-					that.setState({
-						text: result[i][1]
-					})
-					break; //找到对应歌词就停，不停的话，呵呵。。。
-				}
-			}
-		}, 1000);*/
 	}
 	onplay() {
 		let myAudio = document.getElementById('audio');
@@ -161,7 +144,6 @@ class Play extends Component {
 		}, 1000);
 	}
 	componentDidMount() {
-		``
 		let id = this.props.match.params.id;
 		let that = this;
 		// 获取播放url
