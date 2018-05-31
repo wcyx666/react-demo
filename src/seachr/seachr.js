@@ -18,7 +18,7 @@ export default class Main extends Component {
             data: [],
             message: "",
             // 模拟一数据
-            hotlist: ['王俊凯', '薛之谦', '防弹少年团', '我们', '于文文', '大壮', '渺小却伟大']
+            hotlist: []
         };
     }
     render() {
@@ -26,7 +26,7 @@ export default class Main extends Component {
             return <li className='item' key={index}><Link to={'/detail/'+value.id}>{value.name}</Link></li>
         })
         const hotlist = this.state.hotlist.map((value, index) => {
-            return <li className='item' key={value} onClick={ this.handleClickText.bind(this) }>{ value }</li>
+            return <li className='item' key={index} onClick={ this.handleClickText.bind(this) }>{ value.first }</li>
         })
         return (
             <div>
@@ -118,6 +118,18 @@ export default class Main extends Component {
                 console.log(res)
                 that.setState({
                     data: res.data.result.songs
+                });
+            })
+            .catch(function(error) {
+                console.log(error)
+            });
+    }
+    componentDidMount() {
+        let that = this;
+        axios.get('http://localhost:3001/search/hot')
+            .then(function(res) {
+                that.setState({
+                    hotlist: res.data.result.hots
                 });
             })
             .catch(function(error) {

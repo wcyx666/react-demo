@@ -1,1 +1,65 @@
-song.css
+.song_box_title {
+	position: relative;
+	padding-left: 9px;
+	margin: 14px 0;
+	font-size: 17px;
+	height: 20px;
+	line-height: 20px;
+}
+.song_box_title:after {
+    content: " ";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    margin-top: -9px;
+    width: 2px;
+    height: 16px;
+    background-color: #d33a31;
+}
+.song_box_title {
+    padding: 0 .1rem;
+}
+.song_box ul li p {
+    padding: 6px 2px 0 6px;
+    font-size: 13px;
+    display: -webkit-box;
+     /* autoprefixer: off */
+   -webkit-box-orient: vertical; 
+  /* autoprefixer: on */
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+}
+.picUrl {
+	position: relative;
+    padding-bottom: 100%;
+}
+.picUrl img {
+	position: absolute;
+    width: 100%;
+    left: 0;
+    top: 0;
+    z-index: 1;
+    border-radius: 5px;
+}
+.song_box ul li {
+	padding: 6px 0;
+	padding-left: 10px;
+	border-bottom: .01rem solid #ebecec;
+}
+.f-thide {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	word-break: normal;
+}
+.sgtl {
+    font-size: 17px;
+}
+.sgtl span {
+    color: #888;
+    margin-left: 4px;
+}
+.sginfo {
+    font-size: 12px;
+    color: #888;
+}

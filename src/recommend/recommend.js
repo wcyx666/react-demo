@@ -15,7 +15,7 @@ class Recommend extends Component {
 		super(props);
 		this.state = {
 			songsData: [], // 推荐歌曲
-			newsgDta: [] // 最新歌曲
+			highquality: [], //精品歌单
 		};
 	}
 	render() {
@@ -29,10 +29,14 @@ class Recommend extends Component {
 						</Link>
 					</li>
 		})
-		const newsg = this.state.newsgDta.map((data, index) => {
-			return <li className='newsgitem' key={index}>
-						<p className='f-thide sgtl'>{ data.name }<span>{ data.song.alias[0] }</span></p>
-			<p className='f-thide sginfo'>{ data.song.album.artists[0].name } - { data.song.album.name }</p>
+		const highquality = this.state.highquality.map((data, index) => {
+			return <li className='sgitem' key={index}>
+						<Link to={ '/recom/list/'+data.id }>
+							<div className="picUrl">
+								<img src={data.coverImgUrl}/>
+							</div>
+							<p>{ data.name }</p>
+						</Link>
 					</li>
 		})
 		return (
@@ -44,10 +48,10 @@ class Recommend extends Component {
 						{ songs }
 					</ul>
 				</div>
-				<div className="recommend_content_newsg">
-					<h2 className="recommend_title">最新音乐</h2>
+				<div className="recommend_content_songs">
+					<h2 className="recommend_title">精品歌单</h2>
 					<ul>
-						{ newsg }
+						{ highquality }
 					</ul>
 				</div>
       		</div>
@@ -69,18 +73,20 @@ class Recommend extends Component {
 			.catch(function(error) {
 				console.log(error)
 			});
-
-		axios.get('http://localhost:3001/personalized/newsong')
+		axios.get('http://localhost:3001/top/playlist/highquality', {
+				params: {
+					limit: 6,
+				}
+			})
 			.then(function(res) {
-				console.log(res.data.result)
+				console.log(res);
 				that.setState({
-					newsgDta: res.data.result
+					highquality: res.data.playlists
 				})
 			})
 			.catch(function(error) {
 				console.log(error)
 			});
-
 	}
 }
 

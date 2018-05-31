@@ -1,3 +1,23 @@
+.Play_bg {
+	background-position: 50%;
+    background-repeat: no-repeat;
+    background-size: auto 100%;
+    -webkit-transform: scale(1.5);
+    transform: scale(1.5);
+    -webkit-transform-origin: center top;
+    transform-origin: center top;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: 100%;
+    overflow: hidden;
+    z-index: -1;
+    -webkit-transition: opacity .3s linear;
+    transition: opacity .3s linear;
+    background-image: url(//music.163.com/api/img/blur/109951163290871736);
+    opacity: 1;
+}
 .Play_info {
 	width: 100%;
 }
@@ -6,7 +26,7 @@
 	height: 7rem;
 	position: relative;
 }
-.Play_info_img {
+.Play_info_img_play {
 	position: absolute;
 	top: 1rem;
     left: 50%;
@@ -15,6 +35,10 @@
     margin-left: -2.8rem;
     -webkit-animation: rotate 12s linear infinite;
     animation: rotate 12s linear infinite;
+}
+.Play_info_img_pause {
+	animation-play-state:paused;
+	-webkit-animation-play-state:paused; /* Safari 和 Chrome */
 }
 .Play_info_inherit {
 	-webkit-animation:inherit;
@@ -85,12 +109,17 @@
 }
 
 .progress {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	width: 90%;
+	margin: 0 auto;
 }
-
+.progress span {
+	display: inline-block;
+	width: 12%;
+	text-align: right;
+}
 .progress-bar {
   position: relative;
   width: 70%;
@@ -106,7 +135,6 @@
   left: 0;
   display: inline-block;
   height: 5px;
-  width: 70%;
   background: #31c27c;
 }
 
@@ -137,18 +165,18 @@
 	margin-right: 0;
 }
 .music_left {
-	background: url(../../static/icon_left.png) no-repeat;
+	background: url(../../static/play_prev.png) no-repeat;
 	background-size: .8rem;
 }
 .music_play {
-	background: url(../../static/icon_play.png) no-repeat;
+	background: url(../../static/play_pause.png) no-repeat;
 	background-size: .8rem;
 }
 .music_right {
-	background: url(../../static/icon_right.png) no-repeat;
+	background: url(../../static/play_next.png) no-repeat;
 	background-size: .8rem;
 }
 .music_end {
-	background: url(../../static/icon_end.png) no-repeat;
+	background: url(../../static/play_play.png) no-repeat;
 	background-size: .8rem;
 }
