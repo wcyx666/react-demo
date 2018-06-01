@@ -19,6 +19,10 @@ class Song extends Component {
 		};
 	}
 	render() {
+		const {
+			value,
+		} = this.props;
+		console.log(value)
 		const newsg = this.state.newsgDta.map((data, index) => {
 			return (
 				<li className='newsgitem' key={index}>
