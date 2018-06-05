@@ -11,6 +11,7 @@ import Song from './song/song' //热歌榜
 import Recommend from './recommend/recommend' //推荐榜
 import RecomList from './recommend/list/list' //推荐榜
 import Play from './common/play/play' // 音乐播放
+import My from './my/myReactRedux' // 音乐播放
 class Routes extends Component {
 
 	render() {
@@ -22,6 +23,7 @@ class Routes extends Component {
 					<Route path='/seachr' component={ Seachr }/>
 					<Route path='/detail/:id' component={ Play }/>
 					<Route path='/recom/list/:id' component={ RecomList }/>
+					<Route path='/my' component={ My }/>
 				</div>
                
             </HashRouter>

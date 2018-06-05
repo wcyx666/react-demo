@@ -18,6 +18,9 @@ class Title extends Component {
                     <h1>
                         {this.props.title}
                     </h1>
+                    <NavLink to="/my">
+                        <i className="head_icon"></i>
+                    </NavLink>
                 </div>
 	            <div className="head_bottom">
                     <ul>

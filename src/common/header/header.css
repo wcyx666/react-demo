@@ -10,6 +10,9 @@
 	line-height: 1.2rem;
 	text-align: center;
 }
+.head_top h1 {
+	display: inline-block;
+}
 .head_bottom {
 	width: 100%;
 }
@@ -32,4 +35,15 @@
 .active {
 	color: #d43c33 !important;
 	border-bottom: .02rem solid #d43c33;
+}
+.head_icon {
+	width: 32px;
+	height: 32px;
+	background: url(../../static/my/icon_my.png) no-repeat;
+	display: inline-block;
+	background-size: 100%;
+	float: right;
+	position: absolute;
+	right: .3rem;
+	top: .3rem;
 }
