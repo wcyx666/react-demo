@@ -5,9 +5,9 @@ import {
 	Link,
 } from 'react-router-dom';
 import axios from 'axios';
-import Head from '../common/header/header';
-import http from '../utils/http'
-import api from '../utils/api'
+import Head from '../../common/header/header';
+import http from '../../utils/http'
+import api from '../../utils/api'
 // 引入CSS
 import './song.css'
 class Song extends Component {
@@ -20,9 +20,9 @@ class Song extends Component {
 	}
 	render() {
 		const {
-			text,
+			song,
 		} = this.props;
-		console.log(this.props)
+		console.log(song)
 		const newsg = this.state.newsgDta.map((data, index) => {
 			return (
 				<li className='newsgitem' key={index}>

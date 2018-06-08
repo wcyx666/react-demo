@@ -5,7 +5,7 @@ import {
 	Link,
 } from 'react-router-dom';
 import axios from 'axios';
-import Head from '../common/header/header';
+import Head from '../../common/header/header';
 
 // 引入CSS
 import './recommend.css'
@@ -18,8 +18,15 @@ class Recommend extends Component {
 			highquality: [], //精品歌单
 		};
 	}
+	componentDidMount() {
+		this.props.recommendInfos.fetchPersonalized(6);
+		this.props.recommendInfos.fetchHighquality(6);
+	}
 	render() {
-		const songs = this.state.songsData.map((data, index) => {
+
+		let highqualityList = this.props.data.highqualityRedux;
+		let personalizedList = this.props.data.personalizedRedux;
+		const songs = personalizedList.map((data, index) => {
 			return (
 				<li className='sgitem' key={index}>
 					<Link to={ '/recom/list/'+data.id }>
@@ -31,7 +38,7 @@ class Recommend extends Component {
 				</li>
 			)
 		})
-		const highquality = this.state.highquality.map((data, index) => {
+		const highquality = highqualityList.map((data, index) => {
 			return (
 				<li className='sgitem' key={index}>
 					<Link to={ '/recom/list/'+data.id }>
@@ -61,37 +68,7 @@ class Recommend extends Component {
       		</div>
 		);
 	}
-	componentDidMount() {
-		let that = this;
-		axios.get('http://localhost:3001/personalized', {
-				params: {
-					limit: 6,
-				}
-			})
-			.then(function(res) {
-				console.log(res.data.result);
-				that.setState({
-					songsData: res.data.result
-				})
-			})
-			.catch(function(error) {
-				console.log(error)
-			});
-		axios.get('http://localhost:3001/top/playlist/highquality', {
-				params: {
-					limit: 6,
-				}
-			})
-			.then(function(res) {
-				console.log(res);
-				that.setState({
-					highquality: res.data.playlists
-				})
-			})
-			.catch(function(error) {
-				console.log(error)
-			});
-	}
+
 }
 
 export default Recommend;

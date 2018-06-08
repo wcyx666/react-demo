@@ -6,7 +6,7 @@ import {
 } from 'react-router-dom';
 import axios from 'axios';
 
-import Head from '../common/header/header';
+import Head from '../../common/header/header';
 
 // 引入CSS
 import './seachr.css'

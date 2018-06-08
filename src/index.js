@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import registerServiceWorker from './registerServiceWorker';
 import App from './route.js';
-import reducer from './reducer/store'
+import configureStore from './store/store'
 import {
 	createStore
 } from 'redux';
@@ -12,7 +12,7 @@ import {
 } from 'react-redux';
 
 //store  
-let store = createStore(reducer);
+const store = configureStore();
 
 ReactDOM.render((
 	<Provider store={store}>
