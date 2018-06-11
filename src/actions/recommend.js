@@ -21,6 +21,13 @@ const PlayList = (data) => {
 		data
 	}
 };
+
+const PlayInfo = (data) => {
+	return {
+		type: actionTypes.PLAYInfo_REVERSE,
+		data
+	}
+};
 // 推荐歌单
 const fetchPersonalized = (num) => {
 
@@ -55,11 +62,20 @@ const fetchPlayList = (id) => {
 		try {
 			let playList = await request.asyncGet(`http://localhost:3001${API.playlist}?id=${id}`);
 			let playListData = await playList.json();
-			let playInfo = {
-				list: playListData.result.tracks,
-				info: playListData.result
-			}
-			dispatch(PlayList(playInfo));
+			dispatch(PlayList(playListData.result.tracks));
+		} catch (err) {
+			console.log("Error", err);
+		}
+	}
+};
+// 列表信息
+const fetchPlayInfo = (id) => {
+
+	return async dispatch => {
+		try {
+			let playInfo = await request.asyncGet(`http://localhost:3001${API.playlist}?id=${id}`);
+			let playInfoData = await playInfo.json();
+			dispatch(PlayInfo(playInfoData.result));
 		} catch (err) {
 			console.log("Error", err);
 		}
@@ -68,5 +84,6 @@ const fetchPlayList = (id) => {
 export {
 	fetchPersonalized,
 	fetchHighquality,
-	fetchPlayList
+	fetchPlayList,
+	fetchPlayInfo
 }

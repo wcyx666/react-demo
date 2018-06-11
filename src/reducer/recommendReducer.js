@@ -19,9 +19,18 @@ const highqualityRedux = (state = [], action) => {
 			return state;
 	}
 }
-const playListRedux = (state = {}, action) => {
+const playListRedux = (state = [], action) => {
 	switch (action.type) {
 		case actionType.PLAYLIST_REVERSE:
+			return action.data;
+			break;
+		default:
+			return state;
+	}
+}
+const playInfoRedux = (state = {}, action) => {
+	switch (action.type) {
+		case actionType.PLAYInfo_REVERSE:
 			return action.data;
 			break;
 		default:
@@ -31,5 +40,6 @@ const playListRedux = (state = {}, action) => {
 export {
 	personalizedRedux,
 	highqualityRedux,
-	playListRedux
+	playListRedux,
+	playInfoRedux
 }

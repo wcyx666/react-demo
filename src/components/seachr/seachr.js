@@ -8,6 +8,8 @@ import axios from 'axios';
 
 import Head from '../../common/header/header';
 
+import * as localStore from '../../utils/localStorage';
+
 // 引入CSS
 import './seachr.css'
 
@@ -17,24 +19,68 @@ export default class Main extends Component {
         this.state = {
             data: [],
             message: "",
-            // 模拟一数据
-            hotlist: []
+            history: []
         };
+        this.setHistory = this.setHistory.bind(this);
+    }
+    handleOchangTitle(event) {
+        this.setState({
+            message: event.target.value
+        })
+        this.setHistory(event.target.value);
+        // 搜索
+        this.props.searchInfos.fetchSearch(event.target.value);
+    }
+    handleClickNUll(event) {
+        this.setState({
+            data: [],
+            message: ''
+        })
+    }
+    componentDidMount() {
+        // 热搜列表
+        this.props.searchInfos.fetchSearchHot();
+    }
+    handleSearchHot(event) {
+        this.setState({
+            message: event.target.innerText
+        })
+        this.setHistory(event.target.innerText);
+        // 搜索
+        this.props.searchInfos.fetchSearch(event.target.innerText);
+    }
+    setHistory(data) {
+        this.setState({
+            history: this.state.history.push(data)
+        });
+        const searchHistory = this.state.history;
+        let newHistory = [];
+        for (let i = 0; i < searchHistory.length; i++) {
+            if (newHistory.indexOf(searchHistory[i]) === -1) {
+                newHistory.push(searchHistory[i])
+            }
+        }
+        localStore.setItem('search_history', newHistory);
     }
     render() {
-        const list = this.state.data.map((value, index) => {
-            return <li className='item' key={index}><Link to={'/detail/'+value.id}>{value.name}</Link></li>
-        })
-        const hotlist = this.state.hotlist.map((value, index) => {
-            return <li className='item' key={index} onClick={ this.handleClickText.bind(this) }>{ value.first }</li>
-        })
+        let list, hotlist;
+        if (this.props.data.searchRedux !== '[]') {
+            list = this.props.data.searchRedux.map((value, index) => {
+                return <li className='item' key={index}><Link to={'/detail/'+value.id}>{value.name}</Link></li>
+            })
+        }
+        if (this.props.data.HotsearchRedux !== '[]') {
+            hotlist = this.props.data.HotsearchRedux.map((value, index) => {
+                return <li className='item' key={index} onClick={ this.handleSearchHot.bind(this) }>{ value.first }</li>
+            })
+        }
         return (
             <div>
                 <Head title="网易云音乐"></Head>
                 <div className="seachr_content">
                     <div className="search_input">
                         <i className="icon_sec"></i>
-                        <input type="input" value={ this.state.message } placeholder="搜索歌曲、歌手、专辑" onChange={this.handleClickOnTitle.bind(this)}/>
+                        <input type="input" value={ this.state.message } placeholder="搜索歌曲、歌手、专辑" onChange={this.handleOchangTitle.bind(this)}/>
                         {
                            this.state.message != '' && 
                            <i className="icon_close" onClick={ this.handleClickNUll.bind(this) }></i>
@@ -64,76 +110,12 @@ export default class Main extends Component {
                                 </ul>
                             </div>
                         )
-                    }
-                    
-                    
+                    }     
                 </div>
             </div>
 
         )
 
     }
-    handleClickOnTitle(event) {
-        let that = this;
-        this.setState({
-            message: event.target.value
-        })
-        axios.get('http://localhost:3001/search/', {
-                params: {
-                    type: 1,
-                    limit: 6,
-                    keywords: event.target.value
-                }
 
-            })
-            .then(function(res) {
-                console.log(res)
-                that.setState({
-                    data: res.data.result.songs
-                });
-            })
-            .catch(function(error) {
-                console.log(error)
-            });
-    }
-    handleClickNUll(event) {
-        this.setState({
-            data: [],
-            message: ''
-        })
-    }
-    handleClickText(event) {
-        let that = this;
-        that.setState({
-            message: event.target.innerHTML
-        })
-        axios.get('http://localhost:3001/search/', {
-                params: {
-                    type: 1,
-                    limit: 6,
-                    keywords: event.target.innerHTML
-                }
-            })
-            .then(function(res) {
-                console.log(res)
-                that.setState({
-                    data: res.data.result.songs
-                });
-            })
-            .catch(function(error) {
-                console.log(error)
-            });
-    }
-    componentDidMount() {
-        let that = this;
-        axios.get('http://localhost:3001/search/hot')
-            .then(function(res) {
-                that.setState({
-                    hotlist: res.data.result.hots
-                });
-            })
-            .catch(function(error) {
-                console.log(error)
-            });
-    }
 }

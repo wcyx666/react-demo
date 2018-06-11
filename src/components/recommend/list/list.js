@@ -22,11 +22,12 @@ class RecomList extends Component {
 	componentDidMount() {
 		let id = this.props.match.params.id;
 		this.props.RecomListInfos.fetchPlayList(id);
-
+		this.props.RecomListInfos.fetchPlayInfo(id);
 	}
 	render() {
-		console.log(this.props.data.playListRedux.list)
-		let recomList = this.props.data.playListRedux.list;
+		console.log(this.props)
+		let recomList = this.props.data.playListRedux;
+		let recomInfo = this.props.data.playInfoRedux;
 		let result;
 		if (JSON.stringify(recomList) !== '{}') {
 			result = recomList.map((val, index) => {
@@ -51,14 +52,14 @@ class RecomList extends Component {
 		}
 		return (
 			<div className="recom_list">
-				<Head title={ this.state.recomInfo.name }></Head>
+				<Head title={ recomInfo.name }></Head>
 				<div className="recom_list_head">
 					<div className="recom_list_head_left">
-						<img src={ this.state.recomInfo.coverImgUrl } art=""/>
+						<img src={ recomInfo.coverImgUrl } art=""/>
 					</div>
 					<div className="recom_list_head_right">
 						<h2>
-							{ this.state.recomInfo.name }
+							{ recomInfo.name }
 						</h2>
 					</div>
 				</div>	

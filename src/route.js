@@ -6,7 +6,7 @@ import {
 	HashRouter
 } from 'react-router-dom';
 
-import Seachr from './components/seachr/seachr' // 搜索
+import Seachr from './containers/search/search' // 搜索
 import Song from './containers/song/songRedux' //热歌榜
 import Recommend from './containers/recommend/recomRedux' //推荐榜
 import RecomList from './containers/recommend/recom-list' //推荐榜

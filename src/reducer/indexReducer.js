@@ -15,12 +15,22 @@ import {
 	personalizedRedux,
 	highqualityRedux,
 	playListRedux,
+	playInfoRedux
 } from './recommendReducer'
+
+
+import {
+	searchRedux,
+	HotsearchRedux
+} from './seachrReducer'
 
 export default combineReducers({
 	myRedux,
 	loginRedux,
 	personalizedRedux,
 	highqualityRedux,
-	playListRedux
+	playListRedux,
+	playInfoRedux,
+	searchRedux,
+	HotsearchRedux
 })

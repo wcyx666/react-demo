@@ -32,9 +32,9 @@ class Login extends Component {
     }
     handleClickLogin() {
         this.props.loginInfos.fetchLogin(this.state.userName, this.state.userPassword);
-        let loginData = this.props.info.loginRedux;
     }
     render() {
+        console.log(this.props)
         return (
             <div className="login">
                 <Head title="登录页面"></Head>
