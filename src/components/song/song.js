@@ -6,8 +6,9 @@ import {
 } from 'react-router-dom';
 import axios from 'axios';
 import Head from '../../common/header/header';
-import http from '../../utils/http'
-import api from '../../utils/api'
+import Loading from '../../common/loading/loading';
+import request from '../../utils/http'
+import API from '../../utils/api'
 // 引入CSS
 import './song.css'
 class Song extends Component {
@@ -15,15 +16,24 @@ class Song extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			newsgDta: [] // 最新歌曲
+			newsgDta: [], // 最新歌曲
+			loaded: false
 		};
 	}
+
+	componentDidMount() {
+		request.asyncGet(`http://localhost:3001${API.song}`).then(res => res.json()).then(resData => {
+			this.props.songLists.Song(resData.result);
+			this.setState({
+				loaded: true
+			})
+		}).catch(err => {
+			console.log('Error:' + err);
+		})
+	}
+
 	render() {
-		const {
-			song,
-		} = this.props;
-		console.log(song)
-		const newsg = this.state.newsgDta.map((data, index) => {
+		const newsg = this.props.data.songRedux.map((data, index) => {
 			return (
 				<li className='newsgitem' key={index}>
 					<Link to={ '/detail/'+data.id }>
@@ -41,28 +51,17 @@ class Song extends Component {
 		return (
 			<div className="song">
 				<Head title = '网易云音乐'/>
-				<div className="song_box">
-					<ul>
+				{this.state.loaded ?
+					<ul className="song_box">
 						{ newsg }
-					</ul>
-				</div>
+					</ul> :
+					<Loading/>
+				}
       		</div>
 		);
 	}
 
-	componentDidMount() {
-		let that = this;
-		axios.get('http://localhost:3001/personalized/newsong')
-			.then(function(res) {
-				console.log(res)
-				that.setState({
-					newsgDta: res.data.result
-				});
-			})
-			.catch(function(error) {
-				console.log(error)
-			});
-	}
+
 }
 
 export default Song;

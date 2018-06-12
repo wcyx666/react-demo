@@ -7,3 +7,6 @@ export const PLAYInfo_REVERSE = 'PLAYInfo_REVERSE'; // 列表
 
 export const SEARCH_REVERSE = 'SEARCH_REVERSE'; // 搜索列表
 export const HOTSEARCH_REVERSE = 'HOTSEARCH_REVERSE'; // 热门搜索列表
+
+
+export const SONG_REVERSE = 'SONG_REVERSE'; // 热歌榜

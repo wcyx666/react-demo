@@ -1,20 +1,16 @@
 // 工具函数，用于组织多个reducer，并返回reducer集合
-import {
-	combineReducers
-} from 'redux'
-import * as actionTypes from '../constants/action';
+import * as actionType from '../constants/action';
 
-var song = 1;
-
-function songRedux(state = song, action) {
+const songRedux = (state = [], action) => {
 	switch (action.type) {
-		case actionTypes.INCREMENT_COUNTER:
-			//倒叙显示
-			return state
+		case actionType.SONG_REVERSE:
+			return action.data;
+			break;
 		default:
-			return state
+			return state;
 	}
 }
 
-
-export default songRedux
+export {
+	songRedux,
+}

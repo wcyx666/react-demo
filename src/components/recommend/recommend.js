@@ -6,6 +6,7 @@ import {
 } from 'react-router-dom';
 import axios from 'axios';
 import Head from '../../common/header/header';
+import Loading from '../../common/loading/loading';
 
 // 引入CSS
 import './recommend.css'
@@ -16,6 +17,7 @@ class Recommend extends Component {
 		this.state = {
 			songsData: [], // 推荐歌曲
 			highquality: [], //精品歌单
+			loaded: false
 		};
 	}
 	componentDidMount() {
@@ -23,7 +25,7 @@ class Recommend extends Component {
 		this.props.recommendInfos.fetchHighquality(6);
 	}
 	render() {
-
+		console.log(this.props.data.highqualityRedux)
 		let highqualityList = this.props.data.highqualityRedux;
 		let personalizedList = this.props.data.personalizedRedux;
 		const songs = personalizedList.map((data, index) => {
@@ -53,18 +55,21 @@ class Recommend extends Component {
 		return (
 			<div className="recommend">
 				<Head title = '网易云音乐'/>
-				<div className="recommend_content_songs">
-					<h2 className="recommend_title">推荐歌单</h2>
-					<ul>
-						{ songs }
-					</ul>
-				</div>
-				<div className="recommend_content_songs">
-					<h2 className="recommend_title">精品歌单</h2>
-					<ul>
-						{ highquality }
-					</ul>
-				</div>
+				{ this.props.data.highqualityRedux !== '[]' ?
+					<div className="recommend_content_songs">
+						<h2 className="recommend_title">推荐歌单</h2>
+						<ul>
+							{ songs }
+						</ul>
+						<h2 className="recommend_title">精品歌单</h2>
+						<ul>
+							{ highquality }
+						</ul>
+					</div>:
+					<Loading/>
+				}
+				
+				
       		</div>
 		);
 	}

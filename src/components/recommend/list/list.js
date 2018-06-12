@@ -7,6 +7,9 @@ import {
 	Link
 } from 'react-router-dom';
 import createHistory from "history/createBrowserHistory"
+import Loading from '../../../common/loading/loading';
+import request from '../../../utils/http'
+import API from '../../../utils/api'
 
 // 引入CSS
 import './list.css'
@@ -16,13 +19,22 @@ class RecomList extends Component {
 		super(props);
 		this.state = {
 			recomInfo: "",
-			recomList: []
+			recomList: [],
+			loaded: false
 		};
 	}
 	componentDidMount() {
 		let id = this.props.match.params.id;
-		this.props.RecomListInfos.fetchPlayList(id);
-		this.props.RecomListInfos.fetchPlayInfo(id);
+		request.asyncGet(`http://localhost:3001${API.playlist}?id=${id}`).then(res => res.json()).then(resData => {
+			console.log(this.props)
+			this.props.RecomListInfos.PlayList(resData.result.tracks);
+			this.props.RecomListInfos.PlayInfo(resData.result);
+			this.setState({
+				loaded: true
+			})
+		}).catch(err => {
+			console.log('Error:' + err);
+		})
 	}
 	render() {
 		console.log(this.props)
@@ -53,21 +65,28 @@ class RecomList extends Component {
 		return (
 			<div className="recom_list">
 				<Head title={ recomInfo.name }></Head>
-				<div className="recom_list_head">
-					<div className="recom_list_head_left">
-						<img src={ recomInfo.coverImgUrl } art=""/>
-					</div>
-					<div className="recom_list_head_right">
-						<h2>
-							{ recomInfo.name }
-						</h2>
-					</div>
-				</div>	
-				<div className="recom_list_music">
-					<ul>
-						{ result }
-					</ul>
-				</div>
+				{this.state.loaded ?
+					<div className="recom_list_box">
+						<div className="recom_list_head">
+							<div className="recom_list_head_left">
+								<img src={ recomInfo.coverImgUrl } art=""/>
+							</div>
+							<div className="recom_list_head_right">
+								<h2>
+									{ recomInfo.name }
+								</h2>
+							</div>
+						</div>	
+						<div className="recom_list_music">
+							<ul>
+								{ result }
+							</ul>
+						</div>
+					</div> :
+					<Loading/>
+				}
+				
+				
 			</div>
 		);
 	}

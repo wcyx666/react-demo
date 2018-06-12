@@ -65,8 +65,7 @@
 	width: 100%;
 }
 .search_hotlist_title {
-	font-size: 12px;
-    line-height: 12px;
+	font-size: 16px;
     color: #666;
     padding: .2rem 0;
 }
@@ -81,4 +80,25 @@
 	color: #333;
 	border:.01rem solid #ebecec;
 	border-radius: 32px;
+}
+.searchHistory_title {
+	font-size: 16px;
+	margin: .2rem 0;
+	color: #666;
+}
+.searchHistory_title span {
+	float: right;
+	color: #e9203d;
+}
+.searchHistory p {
+	padding: 12px 0;
+    border-bottom: 1px solid #d9d9d9;
+    -webkit-box-pack: space-between;
+    -webkit-justify-content: space-between;
+    justify-content: space-between;
+    background-color: white;
+    font-size: 14px;
+}
+.searchHistory p em {
+	float: right;
 }

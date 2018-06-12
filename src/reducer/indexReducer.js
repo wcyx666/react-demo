@@ -12,6 +12,10 @@ import {
 } from './myReducer'
 
 import {
+	songRedux
+} from './songReducer'
+
+import {
 	personalizedRedux,
 	highqualityRedux,
 	playListRedux,
@@ -32,5 +36,6 @@ export default combineReducers({
 	playListRedux,
 	playInfoRedux,
 	searchRedux,
-	HotsearchRedux
+	HotsearchRedux,
+	songRedux
 })

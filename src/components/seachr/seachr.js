@@ -19,28 +19,38 @@ export default class Main extends Component {
         this.state = {
             data: [],
             message: "",
-            history: []
+            history: localStore.getItem('search_history') ? localStore.getItem('search_history').split(',') : []
         };
         this.setHistory = this.setHistory.bind(this);
+        this.handleSearchHot = this.handleSearchHot.bind(this);
+        this.clearHistory = this.clearHistory.bind(this);
+        this.clearAll = this.clearAll.bind(this);
     }
+
     handleOchangTitle(event) {
         this.setState({
             message: event.target.value
         })
-        this.setHistory(event.target.value);
-        // 搜索
-        this.props.searchInfos.fetchSearch(event.target.value);
+        if (event.target.value != '') {
+            this.setHistory(event.target.value);
+            // 搜索
+            this.props.searchInfos.fetchSearch(event.target.value);
+        }
+
     }
+
     handleClickNUll(event) {
         this.setState({
             data: [],
             message: ''
         })
     }
+
     componentDidMount() {
         // 热搜列表
         this.props.searchInfos.fetchSearchHot();
     }
+
     handleSearchHot(event) {
         this.setState({
             message: event.target.innerText
@@ -49,10 +59,26 @@ export default class Main extends Component {
         // 搜索
         this.props.searchInfos.fetchSearch(event.target.innerText);
     }
-    setHistory(data) {
+
+    clearHistory(text) {
+        const historyArr = localStore.getItem('search_history').split(',');
+        const index = historyArr.indexOf(text);
+        historyArr.splice(index, 1);
+        localStore.setItem('search_history', historyArr);
         this.setState({
-            history: this.state.history.push(data)
+            history: historyArr
         });
+    }
+
+    clearAll() {
+        localStore.setItem('search_history', '');
+        this.setState({
+            history: []
+        });
+    }
+
+    setHistory(data) {
+        this.state.history.push(data);
         const searchHistory = this.state.history;
         let newHistory = [];
         for (let i = 0; i < searchHistory.length; i++) {
@@ -62,6 +88,7 @@ export default class Main extends Component {
         }
         localStore.setItem('search_history', newHistory);
     }
+
     render() {
         let list, hotlist;
         if (this.props.data.searchRedux !== '[]') {
@@ -71,7 +98,7 @@ export default class Main extends Component {
         }
         if (this.props.data.HotsearchRedux !== '[]') {
             hotlist = this.props.data.HotsearchRedux.map((value, index) => {
-                return <li className='item' key={index} onClick={ this.handleSearchHot.bind(this) }>{ value.first }</li>
+                return <li className='item' key={index} onClick={ this.handleSearchHot }>{ value.first }</li>
             })
         }
         return (
@@ -94,23 +121,45 @@ export default class Main extends Component {
                         </div> 
                     }
                     {
-                        this.state.message != '' ? (
-                            <div className="search_list"> 
-                                <ul>
-                                    { list }
-                                </ul>
-                            </div>
-                        ) : (
-                            <div className="search_hotlist">
-                                <h3 className="search_hotlist_title">
-                                    热门搜索
-                                </h3>
-                                <ul className="search_hotlist_list">
-                                    { hotlist }
-                                </ul>
-                            </div>
-                        )
-                    }     
+                        this.state.message != '' &&
+                        <div className="search_list"> 
+                            <ul>
+                                { list }
+                            </ul>
+                        </div>
+                        
+                    }  
+                    {
+                        this.state.message == '' &&
+                        <div className="search_hotlist">
+                            <h3 className="search_hotlist_title">
+                                热门搜索
+                            </h3>
+                            <ul className="search_hotlist_list">
+                                { hotlist }
+                            </ul>
+                        </div>
+                    }
+                    {   
+                        this.state.message == '' &&
+                        <div className="searchHistory">
+                            <h3 className="searchHistory_title">
+                                    搜索列表
+                                    <span onClick={this.clearAll}>清除历史</span>
+                            </h3>
+                            {
+                                this.state.history.length > 0 ? this.state.history.map((ele, index) => {
+                                    return (
+                                        <p key={index}>
+                                            <span onClick={this.handleSearchHot}>{ele}</span>
+                                            <em onClick={() => this.clearHistory(ele)}>&times;</em>
+                                        </p>
+                                    )
+                                }) : null
+                            }
+                        </div>
+                    }
+                    
                 </div>
             </div>
 

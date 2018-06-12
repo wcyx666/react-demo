@@ -19,7 +19,7 @@
 .song_box_title {
     padding: 0 .1rem;
 }
-.song_box ul li p {
+.song_box li p {
     padding: 6px 2px 0 6px;
     font-size: 13px;
     display: -webkit-box;
@@ -41,13 +41,13 @@
     z-index: 1;
     border-radius: 5px;
 }
-.song_box ul li {
+.song_box li {
 	padding: 6px 0;
 	padding-left: 10px;
 	border-bottom: .01rem solid #ebecec;
 	background: url(../../static/icon_plays.png) no-repeat center right 10px;
 }
-.song_box ul li a {
+.song_box li a {
 	color: #333;
 }
 .f-thide {

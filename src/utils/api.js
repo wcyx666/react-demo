@@ -5,4 +5,5 @@ export default {
 	playlist: '/playlist/detail', // 推荐歌单/精品歌单列表
 	search: '/search', // 搜索
 	searchHot: '/search/hot', // 热门搜索列表
+	song: '/personalized/newsong', // 热歌榜
 }
