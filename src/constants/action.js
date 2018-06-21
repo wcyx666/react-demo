@@ -10,3 +10,6 @@ export const HOTSEARCH_REVERSE = 'HOTSEARCH_REVERSE'; // 热门搜索列表
 
 
 export const SONG_REVERSE = 'SONG_REVERSE'; // 热歌榜
+
+export const MUSIC_URL = 'MUSIC_URL';
+export const MUSIC_DETAIL = 'MUSIC_DETAIL';

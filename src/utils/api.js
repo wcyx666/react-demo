@@ -6,4 +6,7 @@ export default {
 	search: '/search', // 搜索
 	searchHot: '/search/hot', // 热门搜索列表
 	song: '/personalized/newsong', // 热歌榜
+	url: '/music/url', // 获取歌曲URL
+	detail: '/song/detail', // 获取歌曲信息
+	lyric: '/lyric', // 获取歌曲歌词
 }

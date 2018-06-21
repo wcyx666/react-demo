@@ -1,6 +1,6 @@
 import * as actionType from '../constants/action';
 
-const loginRedux = (state = [], action) => {
+const loginRedux = (state = {}, action) => {
 	switch (action.type) {
 		case actionType.Login_REVERSE:
 			//倒叙显示

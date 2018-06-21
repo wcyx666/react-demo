@@ -28,6 +28,11 @@ import {
 	HotsearchRedux
 } from './seachrReducer'
 
+import {
+	UrlRedux,
+	DetailRedux
+} from './musicReducer'
+
 export default combineReducers({
 	myRedux,
 	loginRedux,
@@ -37,5 +42,7 @@ export default combineReducers({
 	playInfoRedux,
 	searchRedux,
 	HotsearchRedux,
-	songRedux
+	songRedux,
+	UrlRedux,
+	DetailRedux
 })

@@ -1,3 +1,6 @@
+.Play .return_head {
+	background: none;
+}
 .Play_bg {
 	background-position: 50%;
     background-repeat: no-repeat;
@@ -15,7 +18,7 @@
     z-index: -1;
     -webkit-transition: opacity .3s linear;
     transition: opacity .3s linear;
-    background-image: url(//music.163.com/api/img/blur/109951163290871736);
+    background: #00000080;
     opacity: 1;
 }
 .Play_info {

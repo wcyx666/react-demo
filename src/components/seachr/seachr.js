@@ -25,20 +25,20 @@ export default class Main extends Component {
         this.handleSearchHot = this.handleSearchHot.bind(this);
         this.clearHistory = this.clearHistory.bind(this);
         this.clearAll = this.clearAll.bind(this);
+        this.keyUp = this.keyUp.bind(this)
     }
 
     handleOchangTitle(event) {
         this.setState({
             message: event.target.value
         })
-        if (event.target.value != '') {
-            this.setHistory(event.target.value);
-            // 搜索
-            this.props.searchInfos.fetchSearch(event.target.value);
-        }
-
     }
-
+    keyUp(e) {
+        if (e.keyCode === 13) {
+            this.props.searchInfos.fetchSearch(this.state.message, 6);
+            this.setHistory(this.state.message);
+        }
+    }
     handleClickNUll(event) {
         this.setState({
             data: [],
@@ -107,7 +107,7 @@ export default class Main extends Component {
                 <div className="seachr_content">
                     <div className="search_input">
                         <i className="icon_sec"></i>
-                        <input type="input" value={ this.state.message } placeholder="搜索歌曲、歌手、专辑" onChange={this.handleOchangTitle.bind(this)}/>
+                        <input type="input" value={ this.state.message } placeholder="搜索歌曲、歌手、专辑" onKeyUp={this.keyUp} onChange={this.handleOchangTitle.bind(this)}/>
                         {
                            this.state.message != '' && 
                            <i className="icon_close" onClick={ this.handleClickNUll.bind(this) }></i>

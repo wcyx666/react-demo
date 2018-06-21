@@ -1,0 +1,15 @@
+.model {
+	position: absolute;
+    width: 3rem;
+    height: .8rem;
+    color: #fff;
+    bottom: 70px;
+    left: 50%;
+    background: #000;
+    border-radius: .1rem;
+    font-size: 14px;
+    text-align: center;
+    line-height: .8rem;
+    background: #00000075;
+    margin-left: -1.5rem;
+}

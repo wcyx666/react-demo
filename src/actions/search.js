@@ -16,11 +16,11 @@ const SearchHot = (data) => {
 	}
 };
 // 请求数据
-const fetchSearch = (val) => {
+const fetchSearch = (val, num) => {
 
 	return async dispatch => {
 		try {
-			let res = await request.asyncGet(`http://localhost:3001${API.search}?keywords=${val}`);
+			let res = await request.asyncGet(`http://localhost:3001${API.search}?keywords=${val}&limit=${num}`);
 			let resultData = await res.json();
 			dispatch(Search(resultData.result.songs));
 		} catch (err) {

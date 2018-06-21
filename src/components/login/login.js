@@ -1,17 +1,25 @@
 import React, {
     Component
 } from 'react';
-
+import createHistory from "history/createBrowserHistory"
 import './login.css'
 //=====组件=====
 import Head from '../../common/return-header/return-head';
+import Model from '../../common/model/model';
+import request from '../../utils/http'
+import API from '../../utils/api'
+import * as localStorage from '../../utils/localStorage'
+
+const history = createHistory()
 
 class Login extends Component {
     constructor(props) {
         super(props);
         this.state = {
             userName: "",
-            userPassword: ""
+            userPassword: "",
+            popup: true,
+            message: "111"
         };
         this.handleChangeUserName = this.handleChangeUserName.bind(this);
         this.handleChangeUserPassWord = this.handleChangeUserPassWord.bind(this);
@@ -31,7 +39,16 @@ class Login extends Component {
         });
     }
     handleClickLogin() {
-        this.props.loginInfos.fetchLogin(this.state.userName, this.state.userPassword);
+        request.asyncGet(`http://localhost:3001${API.login}?phone=${this.state.userName}&password=${this.state.userPassword}`).then(res => res.json()).then(resData => {
+            console.log(resData)
+            if (resData.code == 200) {
+                this.props.loginInfos.Login(resData);
+                localStorage.setItem('loginType', resData);
+                history.goBack();
+            }
+        }).catch(err => {
+            console.log('Error:' + err);
+        })
     }
     render() {
         console.log(this.props)

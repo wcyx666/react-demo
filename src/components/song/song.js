@@ -23,6 +23,7 @@ class Song extends Component {
 
 	componentDidMount() {
 		request.asyncGet(`http://localhost:3001${API.song}`).then(res => res.json()).then(resData => {
+			console.log(this.props)
 			this.props.songLists.Song(resData.result);
 			this.setState({
 				loaded: true

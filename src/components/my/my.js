@@ -6,6 +6,8 @@ import {
     createPost
 } from '../../actions/my'
 
+import Head from '../../common/return-header/return-head'
+import * as localStorage from '../../utils/localStorage'
 //=====组件=====
 class My extends Component {
 
@@ -14,15 +16,17 @@ class My extends Component {
     }
     componentDidMount() {
 
-        this.props.myInfoAction.fetchMusic()
-
     }
     render() {
-        console.log(this.props.info)
+        console.log(this.props.info.loginRedux)
         return (
-            <div>
-                <h3>新闻页面</h3>
-                
+            <div className="my">
+                <Head title="我的"/>
+                <div className="my-list">
+                    <ul>
+                        <li>我的收藏</li>
+                    </ul>
+                </div>
             </div>
         );
     }
